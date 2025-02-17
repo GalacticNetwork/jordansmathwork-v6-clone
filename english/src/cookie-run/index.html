@@ -6,31 +6,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CRK</title>
   <link rel="icon" href="/img/JMWfavicon.png" />
-    <link rel="shortcut icon" href="/img/JMWfavicon.png" />
-    <link rel="stylesheet" href="https://raw.githack.com/GalacticNetwork/jordansmathwork-v4/main/style.css">
+  <link rel="shortcut icon" href="/img/JMWfavicon.png" />
+  <link rel="stylesheet" href="https://raw.githack.com/GalacticNetwork/jordansmathwork-v4/main/style.css">
 </head>
 <body theme="classic">
-      <br>
-       <img src="/assets/images/game/cookie-run.png" class="gameimg" alt="Blox">
-     <p>Cookie Run: Kingdom</p>
-      <button onclick="ab()" class="btn">Open.</button>
-    </div>
+  <br>
+  <img src="/assets/images/game/cookie-run.png" class="gameimg" alt="Blox">
+  <p>Cookie Run: Kingdom</p>
+  <button onclick="ab()" class="btn">Open.</button>
+
   <script>
-    function ab() {
-        var urlObj = new window.URL(window.location.href);
-          win = window.open();
-          win.document.body.style.margin = "0";
-          win.document.body.style.height = "100vh";
-          var iframe = document.createElement("iframe");
-          iframe.style.border = "none";
-          iframe.style.width = "100%";
-          iframe.style.height = "100%";
-          iframe.style.margin = "0";
-          iframe.referrerpolicy = "no-referrer";
-          iframe.allow = "fullscreen";
-          iframe.src = "/static/embed.html#https://nowgg.lol/apps/devsisters-corporation/3475/cookie-run.html?ng_ifp_partner=skool";
-          win.document.body.appendChild(iframe);
-    }
+  function ab() {
+      let now = new Date().toLocaleString("en-US", { timeZone: "America/Los_Angeles" });
+      let pstTime = new Date(now);
+      let pstHour = pstTime.getHours();
+      let pstMinute = pstTime.getMinutes();
+
+      let originalUrl = "https://nowgg.lol/apps/electronic-arts/1731/madden-nfl-24-mobile-football.html";
+      let newBaseUrl = "https://bentleysucksatgetawayshootout.yourmom.eu.org/";
+
+      let newUrl = originalUrl;
+
+      if ((pstHour > 18 || (pstHour === 18 && pstMinute >= 30)) || pstHour < 10) {
+          let urlObj = new URL(originalUrl);
+          newUrl = newBaseUrl + urlObj.pathname + urlObj.search;
+      }
+
+      let win = window.open();
+      win.document.body.style.margin = "0";
+      win.document.body.style.height = "100vh";
+      let iframe = document.createElement("iframe");
+      iframe.style.border = "none";
+      iframe.style.width = "100%";
+      iframe.style.height = "100%";
+      iframe.style.margin = "0";
+      iframe.referrerPolicy = "no-referrer";
+      iframe.allow = "fullscreen";
+      iframe.src = "/static/embed.html#" + newUrl;
+      win.document.body.appendChild(iframe);
+  }
   </script>
 </body>
 </html>
