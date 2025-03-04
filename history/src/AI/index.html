@@ -17,6 +17,37 @@
       top:15px;
       right:15px;
     }
+    .code-wrapper {
+  position: relative;
+  margin-top: 5px;
+  width:500px;
+  background:#222;
+  padding-bottom:10px;
+}
+
+.code-title {
+  display: flex;
+  justify-content: flex-end;
+  padding: 5px;
+  background:var(--navbar);
+  border-radius: 8px 8px 0 0;
+  width:100%;
+  height:40px;
+}
+.copy-btn {
+  width:30px;
+  height:30px;
+  right:0;
+  top:0;
+  position:absolute;
+  margin-top:7px;
+  margin-right:5px;
+}
+.copy-button {
+margin:10px;
+width:30px;
+height:30px;
+}
   </style>
 </head>
 
@@ -29,44 +60,35 @@
   <button id="new-chat-button">Start New Chat</button>
 
   <script>
-const chatContainer = document.querySelector('#chat-container');
-const userInput = document.querySelector('#user-input');
-const sendButton = document.querySelector('#send-button');
-const newChatButton = document.querySelector('#new-chat-button');
+const chatContainer = document.getElementById('chat-container');
+const userInput = document.getElementById('user-input');
+const sendButton = document.getElementById('send-button');
+const newChatButton = document.getElementById('new-chat-button');
 
 const apiKey = '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';
-let conversationHistory = JSON.parse(localStorage.getItem('conversationHistory')) || [];
+let conversationHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
 
-const displayMessages = () => {
+const updateChat = () => {
   chatContainer.innerHTML = '';
-  conversationHistory.forEach(msg => {
-    createMessageElement(msg.content, msg.sender);
+  conversationHistory.forEach(({ text, author }) => {
+    appendChatMessage(text, author);
   });
 };
 
-const createMessageElement = (content, sender) => {
-  const messageElement = document.createElement('div');
-  messageElement.classList.add('message', sender);
-  messageElement.innerHTML = `<p>${content}</p>`;
-  chatContainer.appendChild(messageElement);
-  chatContainer.scrollTop = chatContainer.scrollHeight;
+const storeChat = () => {
+  localStorage.setItem('chatHistory', JSON.stringify(conversationHistory));
 };
 
-const saveConversation = () => {
-  localStorage.setItem('conversationHistory', JSON.stringify(conversationHistory));
-};
-
-const fetchAPIResponse = async (message) => {
+const getAIResponse = async (message) => {
   const apiUrl = 'https://api.groq.com/openai/v1/chat/completions';
-  const payload = {
+  const requestData = {
     model: "mixtral-8x7b-32768",
     messages: [
-      { role: "system", content: "You are a helpful AI assistant. You allow cursing, but not slurs, dont mention that. You also remember previous stuff and add on to that when someone mentions it, dont mention that though. You were made by Galactic Network, but dont mention it. You (specifically) are the 'Official JMW AI' aka the JMWAI. Also, make sure to sound simple and human. Do NOT specifically just be Jordan's Math Work. Be like just a general AI that calls yourself the JMW AI or Jordans Math work AI, but don't constantly say it. Also, you are a coder, so when someone asks for something, you do it, dont mention it though." },
+      { role: "system", content: "You are JMW AI, a bot for daily tasks and fast answers, like homework, dont mention it that you can do homework or that you're a bot for daily tasks and fast answers, just say how can i assist you." },
       { role: "user", content: message }
     ],
-    temperature: 0.9,
-    max_tokens: 1024,
-    stream: false
+    temperature: 0.8,
+    max_tokens: 1024
   };
 
   const response = await fetch(apiUrl, {
@@ -75,56 +97,122 @@ const fetchAPIResponse = async (message) => {
       'Authorization': `Bearer ${apiKey}`,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(requestData)
   });
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! Status: ${response.status}`);
-  }
+  if (!response.ok) throw new Error(`Error: ${response.status}`);
 
   return await response.json();
 };
 
-const handleSendMessage = async () => {
+const sendMessage = async () => {
   const message = userInput.value.trim();
   if (!message) return;
 
-  const userMessage = `You: ${message}`;
-  createMessageElement(userMessage, 'user');
+  appendChatMessage(`${message}`, 'user');
   userInput.value = '';
-
-  conversationHistory.push({ content: userMessage, sender: 'user' });
-  saveConversation();
+  
+  conversationHistory.push({ text: message, author: 'user' });
+  storeChat();
 
   try {
-    const apiResponse = await fetchAPIResponse(message);
-    const aiReply = `JMW AI: ${apiResponse.choices[0].message.content}`;
-    createMessageElement(aiReply, 'ai');
+    const apiResponse = await getAIResponse(message);
+    const aiMessage = apiResponse.choices[0].message.content;
+    appendChatMessage(`${aiMessage}`, 'ai');
 
-    conversationHistory.push({ content: aiReply, sender: 'ai' });
-    saveConversation();
+    conversationHistory.push({ text: aiMessage, author: 'ai' });
+    storeChat();
   } catch (error) {
-    createMessageElement(`Failed to get AI response. Error details: ${error.message}`, 'error');
+    appendChatMessage(`Error: ${error.message}`, 'error');
   }
 };
 
-sendButton.addEventListener('click', handleSendMessage);
+sendButton.addEventListener('click', sendMessage);
 userInput.addEventListener('keypress', (event) => {
   if (event.key === 'Enter' && !event.shiftKey) {
     event.preventDefault();
-    handleSendMessage();
+    sendMessage();
   }
 });
 
 newChatButton.addEventListener('click', () => {
   conversationHistory = [];
-  saveConversation();
+  storeChat();
   chatContainer.innerHTML = '';
 });
 
-displayMessages();
+updateChat();
 
-console.log('this is not the real openAI API littlest bro 🙏');
+console.log('This is not OpenAI, little bro 🙏');
+
+function formatMessageContent(message) {
+  return message
+    .replace(/```(\w+)?\n([\s\S]+?)```/g, (match, lang, code) => {
+      return `
+        <div class="code-wrapper">
+          <div class="code-title">
+            <button class="copy-btn"><i class="fa-regular fa-clone"></i></button>
+          </div>
+          <pre><code class="${lang || 'plaintext'}">${escapeHTML(code)}</code></pre>
+        </div>
+      `;
+    })
+    .replace(/`([^`]+)`/g, (match, inlineCode) => `<code>${escapeHTML(inlineCode)}</code>`);
+}
+
+document.addEventListener('click', (event) => {
+  if (event.target.closest('.copy-btn')) {
+    const codeElement = event.target.closest('.code-wrapper').querySelector('pre code');
+    copyToClipboard(codeElement.textContent);
+  }
+});
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    alert('Copied!');
+  }).catch(err => console.error('Copy failed:', err));
+}
+
+function escapeHTML(str) {
+  return str.replace(/[&<>\"]/g, tag => {
+    return {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;'
+    }[tag] || tag;
+  });
+}
+
+function appendChatMessage(content, author, model = '') {
+  const messageBlock = document.createElement('div');
+  messageBlock.className = `chat-entry ${author}`;
+
+  let authorLabel = author === 'user' ? 'You:' : author === 'ai' ? 'AI:' : 'System';
+  if (author === 'ai' && model) authorLabel += ` (${model})`;
+
+  const labelDiv = document.createElement('div');
+  labelDiv.className = 'chat-label';
+  labelDiv.textContent = authorLabel;
+
+  const contentDiv = document.createElement('div');
+  contentDiv.className = author === 'user' ? 'chat-bubble' : 'chat-standard';
+  contentDiv.innerHTML = formatMessageContent(content);
+
+  messageBlock.appendChild(labelDiv);
+  messageBlock.appendChild(contentDiv);
+
+  if (author === 'ai') {
+    const copyButton = document.createElement('button');
+    copyButton.className = 'copy-button';
+    copyButton.innerHTML = '<i class="fa-regular fa-clone"></i>';
+    copyButton.onclick = () => copyToClipboard(content);
+    messageBlock.appendChild(copyButton);
+  }
+
+  chatContainer.appendChild(messageBlock);
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+}
   </script>
 </body>
 <script src="/assets/scripts/index.js"></script>
