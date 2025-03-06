@@ -317,7 +317,7 @@
     const blacklist = ["1v1-lol/new", "eaglercraft/menu", "1v1.lol/index.html", "eaglercraft/133", "eaglercraft/152", "eaglercraft/188", "eaglercraft/189", "eaglercraft/X", "eaglercraft/java", "eaglercraft/allmcmenu"];
     
     if (type == "3kh0") {
-      document.getElementById('gameFramey').src = 'https://cdn.canvaslms.site/galacticnetwork/3kh0-assets/main/' + file + '/index.html';
+      document.getElementById('gameFramey').src = 'https://cdn.galacticnetwork.org/galacticnetwork/3kh0-assets/main/' + file + '/index.html';
       document.getElementById('fileInfo').textContent = "This is a 3kh0 file. Download feature will not be available for this file.";
     } else {
       document.getElementById('gameFramey').src = "/english/src/" + file;
@@ -325,7 +325,7 @@
 
     document.getElementById('downloadBtn').addEventListener('click', () => {
       if (type == "3kh0") {
-        const originalUrl = 'https://cdn.canvaslms.site/galacticnetwork/3kh0-assets/main/' + file + '/index.html';
+        const originalUrl = 'https://cdn.galacticnetwork.org/galacticnetwork/3kh0-assets/main/' + file + '/index.html';
         const modifiedUrl = originalUrl
           .replace('cdn.canvaslms.site', 'github.com')
           .replace('/main/', '/blob/main/');
