@@ -1,0 +1,155 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: black;
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+        .cool-button {
+            padding: 15px 30px;
+            font-size: 20px;
+            color: white;
+            background-color: #007BFF; /* Button background color */
+                      bottom: 70px; /* Adjust this value to move it higher or lower */
+            border: none;
+            border-radius: 50px; /* Make the button oval */
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: background-color 0.3s ease;
+            user-select: none; /* Prevent text selection */
+        }
+        .cool-button span {
+            position: relative;
+            z-index: 1;
+        }
+        .neon-border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50px; /* Match the button's border radius */
+            box-shadow: 0 0 5px #00BFFF, 0 0 10px #00BFFF, 0 0 20px #00BFFF; /* Neon blue effect */
+            z-index: 0;
+        }
+        .neon-border::before,
+        .neon-border::after {
+            content: '';
+            position: absolute;
+            border-radius: 50px;
+            opacity: 0.5;
+            box-shadow: 0 0 5px #00BFFF, 0 0 10px #00BFFF, 0 0 20px #00BFFF; /* Neon blue effect */
+            animation: dance 1.5s infinite alternate;
+        }
+        .neon-border::before {
+            top: -10px;
+            left: -10px;
+            width: 100%;
+            height: 100%;
+            animation-delay: 0s;
+        }
+        .neon-border::after {
+            top: 10px;
+            left: 10px;
+            width: 100%;
+            height: 100%;
+            animation-delay: 0.75s;
+        }
+        @keyframes dance {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+        }
+      
+        .scrollable-div {
+            position: fixed; /* Fix the position to the bottom */
+            bottom: 20px; /* Adjust this value to move it higher or lower */
+            left: 50%; /* Center horizontally */
+            transform: translateX(-50%); /* Adjust for centering */
+            width: 80%; /* Set width */
+            height: 150px; /* Set height for scrolling */
+            overflow-y: auto; /* Enable vertical scrolling */
+            background: radial-gradient(circle, purple, #20B2AA); /* Radial gradient from purple to sea green */
+            color: white; /* Text color */
+            padding: 10px;
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+      }
+
+    </style>
+</head>
+<body>
+  
+    <div class="cool-button" onclick="goToGoogle()">
+        <div class="neon-border"></div>
+        <span id="button-text">Go to Google</span>
+    </div>
+  <div class="scrollable-div" id="scrollable-text">
+<h2>
+    Clicking the button above will activate "School Mode," a web browser that provides unrestricted access to any website while maintaining a familiar interface that looks exactly like Google Chrome. In School Mode, you will have a built-in bookmarks bar for quick access to your favorite sites and a comprehensive history function that allows you to track your browsing activity effortlessly. This mode is designed to enhance your browsing experience by offering all the essential features of a modern web browser, ensuring that you can navigate the internet seamlessly. By clicking the button, you will unlock the full potential of School Mode, making it easier to access the information you need without any limitations. Activate School Mode now to enjoy a streamlined and efficient browsing experience!
+</h2>
+    <center>
+    <h1>&copy 2025 SystemSolver</h1>
+    </center>
+    </div>
+    <script>
+        const textElement = document.getElementById('button-text');
+        const fullText = "Let's start the schoolday. The right way.";
+        const typingSpeed = 100; // Speed of typing effect
+        const deletingSpeed = 50; // Speed of deleting effect
+      const pauseBeforeDeleting = 1000; // Pause before starting to delete (in milliseconds)
+        let index = 0;
+        let isDeleting = false;
+
+function typeText() {
+            if (isDeleting) {
+                if (index > 0) {
+                    index--;
+                    textElement.textContent = fullText.substring(0, index);
+                    setTimeout(typeText, deletingSpeed);
+                } else {
+                    isDeleting = false;
+                    setTimeout(typeText, pauseBeforeDeleting); // Pause before starting to type again
+                }
+            } else {
+                if (index < fullText.length) {
+                    textElement.textContent = fullText.substring(0, index + 1);
+                    index++;
+                    setTimeout(typeText, typingSpeed);
+                } else {
+                    isDeleting = true;
+                    setTimeout(typeText, pauseBeforeDeleting); // Pause before starting to delete
+                }
+            }
+        }
+
+        // Start the typing effect
+        typeText();
+
+        function goToGoogle() {
+            window.location.href = 'index2.html';
+        }
+  
+    </script>
+
+</body>
+</html>
