@@ -334,6 +334,49 @@
   </div>
   </div>
   </div>
+  <style>
+    .sz-link {
+      position: fixed;
+      bottom: 4px;
+      left: 10px;
+      z-index: 999998;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      opacity: 0.8;
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 5px 10px;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      transition: opacity 0.3s ease;
+    }
+    
+    .sz-link:hover {
+      opacity: 1;
+    }
+    
+    .sz-link a {
+      color: #333;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+  
+  <div class="sz-link" id="szLink">
+    <a title="Clicks Per Second" href="https://clickspersecond.com/?ref=galactic" target="_blank">
+      Clicks Per Second Test
+    </a>
+    <script src="https://partner.senty.com.au/partner-db4bbf29.js"></script>
+  </div>
+  
+  <script>
+    setTimeout(() => {
+      const szLink = document.getElementById('szLink');
+      if (szLink) {
+        szLink.style.opacity = '0';
+        setTimeout(() => szLink.style.display = 'none', 300);
+      }
+    }, 6000);
+  </script>     
 <script src="/assets/scripts/fade.js"></script>
   <script>
     const urlParams = new URLSearchParams(window.location.search);
