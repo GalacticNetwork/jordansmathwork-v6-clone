@@ -1,6 +1,6 @@
 self.__uv$config = {
   prefix: '/static/jmwsw/',
-  bare: 'https://astroid.werder.li/bare/',
+  bare: 'https://historicalfiction.vpn.net.br/bare/',
   encodeUrl: Ultraviolet.codec.xor.encode,
   decodeUrl: Ultraviolet.codec.xor.decode,
   handler: '/static/uv/uv.handler.js',
