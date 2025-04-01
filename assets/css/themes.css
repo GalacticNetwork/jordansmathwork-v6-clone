@@ -1,7 +1,13 @@
 body[theme="classic"] {
-  --bgcolor: #222;
-  --navbar: #30303062;
-  --txtcolor: #adad43;
+  background: url('/getrickrolled.gif');
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+  webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  --navbar:black;
+  --txtcolor:#C2A49C;
 }
 
 body[theme="light"] {
@@ -110,4 +116,16 @@ body[theme="blackteal"] {
   background: url(https://iili.io/JWtPgwv.png);
   --navbar: #0076a862;
   --txtcolor: #00ffcc;
+}
+
+body[theme="rickroll"] {
+  background: url('/getrickrolled.gif');
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+  webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  --navbar: #30303062;
+  --txtcolor: #28B9AB;
 }
