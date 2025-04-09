@@ -1,6 +1,6 @@
 self.__uv$config = {
   prefix: '/static/jmwsw/',
-  bare: 'https://schooltripideas.home.kg/bare/',
+  bare: 'https://yeskingimbuss.thedaedals.com/bare/',
   encodeUrl: Ultraviolet.codec.xor.encode,
   decodeUrl: Ultraviolet.codec.xor.decode,
   handler: '/static/uv/uv.handler.js',
