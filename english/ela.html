@@ -325,9 +325,9 @@
 
     document.getElementById('downloadBtn').addEventListener('click', () => {
       if (type == "3kh0") {
-        const originalUrl = 'https://rawcdn.rawgit.net/galacticnetwork/3kh0-assets/main/' + file + '/index.html';
+        const originalUrl = 'https://cdn.galacticnetwork.org/galacticnetwork/3kh0-assets/main/' + file + '/index.html';
         const modifiedUrl = originalUrl
-          .replace('cdn.canvaslms.site', 'github.com')
+          .replace('cdn.galacticnetwork.org', 'github.com')
           .replace('/main/', '/blob/main/');
         window.location.href = modifiedUrl;
       } else {
