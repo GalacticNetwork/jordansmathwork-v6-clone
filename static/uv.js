@@ -1,6 +1,6 @@
-importScripts('/static/uv/uv.bundle.js');
-importScripts('/static/uv/uv.config.js');
-importScripts('/static/uv/uv.sw.js');
+importScripts('/static/jmw/jmw.bundle.js');
+importScripts('/static/jmw/jmw.config.js');
+importScripts('/static/jmw/jmw.sw.js');
 
 const sw = new UVServiceWorker();
 
