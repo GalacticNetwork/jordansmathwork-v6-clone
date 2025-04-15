@@ -1,6 +1,6 @@
 self.__uv$config = {
   prefix: '/static/jordansmath/work/',
-  bare: 'https://sun.konturdoma.ru/bare/',
+  bare: 'https://who-is.tecnibor.com/bare/',
   encodeUrl: Ultraviolet.codec.xor.encode,
   decodeUrl: Ultraviolet.codec.xor.decode,
   handler: '/static/jmw/jmw.handler.js',
