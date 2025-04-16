@@ -376,22 +376,26 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 <script type="module">
   // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
   // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   const firebaseConfig = {
-    apiKey: "AIzaSyBYVBRZX69FgQqr7MkNchaE8zx_uR_h4u0",
-    authDomain: "math-work-version-6.firebaseapp.com",
-    projectId: "math-work-version-6",
-    storageBucket: "math-work-version-6.appspot.com",
-    messagingSenderId: "121038624800",
-    appId: "1:121038624800:web:ea6c302627b9a99ca90445"
+    apiKey: "AIzaSyBpyxAuEAClvJmocGiivPd0VuzGci-OgEs",
+    authDomain: "ixllearningmath.firebaseapp.com",
+    projectId: "ixllearningmath",
+    storageBucket: "ixllearningmath.firebasestorage.app",
+    messagingSenderId: "973077094995",
+    appId: "1:973077094995:web:37259bb5bdc50e2d0d1ca6",
+    measurementId: "G-R8SGV53KGZ"
   };
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
 </script>
 <script src="/assets/scripts/s1.js"></script>
 <script src="/assets/scripts/s2.js"></script>
